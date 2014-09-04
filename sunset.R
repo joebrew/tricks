@@ -4,6 +4,10 @@
 if(!require(devtools)){
   install.packages("devtools")
 }
+
+if(!require(StreamMetabolism)){
+  install.packages("StreamMetabolism")
+}
 library('devtools')
 install_github('hilary','hilaryparker')
 library('hilary')
