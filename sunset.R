@@ -1,7 +1,9 @@
 # from http://www.statslife.org.uk/significance/science-technology/1715-never-miss-another-sunset-with-r
 
 # LOAD HILARY PARKER'S PACKAGE
-
+if(!require(devtools)){
+  install.packages("devtools")
+}
 library('devtools')
 install_github('hilary','hilaryparker')
 library('hilary')
@@ -11,6 +13,17 @@ library('hilary')
 #### Latitude, longitude, location type (see explanation at the end), formatted address
 #### Notice ther is a limit of 2,500 calls per day
 
+if(!require(RCurl)){
+  install.packages("RCurl")
+}
+
+if(!require(RJSONIO)){
+  install.packages("RJSONIO")
+}
+
+if(!require(plyr)){
+  install.packages("plyr")
+}
 library(RCurl)
 library(RJSONIO)
 library(plyr)
