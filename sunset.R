@@ -1,3 +1,12 @@
+# from http://www.statslife.org.uk/significance/science-technology/1715-never-miss-another-sunset-with-r
+
+# LOAD HILARY PARKER'S PACKAGE
+
+library('devtools')
+install_github('hilary','hilaryparker')
+library('hilary')
+
+# LOAD GOOGLE'S LAT LONG API STUFF
 #### This script uses RCurl and RJSONIO to download data from Google's API:
 #### Latitude, longitude, location type (see explanation at the end), formatted address
 #### Notice ther is a limit of 2,500 calls per day
@@ -31,15 +40,20 @@ geoCode <- function(address,verbose=FALSE) {
 
 
 # Use plyr to getgeocoding for a vector
-# address <- c("Alachua County Health Department",
-#              "The Capitol, Washington, DC",
-#              "Zip code 32641")
-# locations <- ldply(address, function(x) geoCode(x))
-# names(locations) <- c("lat","lon","location_type", "forAddress")
+address <- c("530 NW 2nd Street, Gainesville, FL 32601")
+locations <- ldply(address, function(x) geoCode(x))
+names(locations) <- c("lat","lon","location_type", "forAddress")
 
-#Location type, for more info check here: https://developers.google.com/maps/documentation/directions/
-#"ROOFTOP" indicates that the returned result is a precise geocode for which we have location information accurate down to street address precision.
-#RANGE_INTERPOLATED" indicates that the returned result reflects an approximation (usually on a road) interpolated between two precise points (such as intersections). Interpolated results are generally returned when rooftop geocodes are unavailable for a street address.
-#GEOMETRIC_CENTER" indicates that the returned result is the geometric center of a result such as a polyline (for example, a street) or polygon (region).
-#APPROXIMATE" indicates that the returned result is approximate.
+locations$lat <- as.numeric(locations$lat)
+locations$lon <- as.numeric(locations$lon)
+
+# WRITE CSV
+setwd("C:/Users/BrewJR/Documents/tricks/")
+create_sunset_cal(date="2014/01/01",
+                  lat = locations$lat,
+                  long = locations$lon,
+                  timezone = "America/New_York",
+                  num.days = 365,
+                  file="sunset.csv",
+                  location = "530 NW 2nd Street, Gainesville, FL 32601, USA")
 
