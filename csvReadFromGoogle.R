@@ -6,3 +6,12 @@ myLink<- "https://docs.google.com/spreadsheets/d/1ckfJLebzPYhJCp595aUn7IXkbDBBB2
 
 myCsv <- getURL(myLink)
 df <- read.csv(textConnection(myCsv))
+
+# FUNCTION TO READ DATA FROM GOOGLE
+GooFun <- function(myLink){
+  myLink <- "https://docs.google.com/spreadsheets/d/1fR1FQQrtAUHxXHgDz5IMKrrZAQbFz2D-kbGMQTUo0ew/pubhtml"
+  csvLink <- gsub("/pubhtml", "/export?&format=csv", myLink)
+  myCsv <- getURL(csvLink)
+  df <- read.csv(textConnection(myCsv))
+  return(df)
+}
